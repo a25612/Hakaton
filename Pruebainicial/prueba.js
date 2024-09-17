@@ -1,41 +1,34 @@
-// Crear el mapa
-var map = L.map('map').setView([20, 0], 2);
+// script.js
 
-// Agregar una capa de tile del mapa
+// Crear el mapa
+var map = L.map('map').setView([0, 0], 2);
+
+// Agregar una capa de mapa base
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// Agregar un marcador de ejemplo
-L.marker([51.5, -0.09]).addTo(map)
-    .bindPopup('Un marcador en Londres.')
-    .openPopup();
+// Función para obtener y mostrar los datos sísmicos
+function fetchEarthquakeData() {
+    fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson')
+        .then(response => response.json())
+        .then(data => {
+            data.features.forEach(feature => {
+                var coords = feature.geometry.coordinates;
+                var magnitude = feature.properties.mag;
+                var location = feature.properties.place;
 
+                L.circle([coords[1], coords[0]], {
+                    color: 'brown',
+                    fillColor: '#f03',
+                    fillOpacity: 0.5,
+                    radius: magnitude * 10000
+                }).addTo(map)
+                  .bindPopup(`<b>Magnitud:</b> ${magnitude}<br><b>Ubicación:</b> ${location}`);
+            });
+        })
+        .catch(error => console.error('Error fetching earthquake data:', error));
+}
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Cargar el JSON desde un archivo local
-        fetch('magnitude.json')
-            .then(response => response.json())
-            .then(data => {
-                // Mostrar los datos en la consola para verificar que se cargaron correctamente
-                console.log(data);
-    
-                // Aquí puedes añadir el código para procesar y mostrar los datos en la página
-                const magnitudesContainer = document.createElement('div');
-                magnitudesContainer.innerHTML = `
-                    <h1>${data.title}</h1>
-                    <p>${data.description}</p>
-                    <ul>
-                        ${data.magnitudes.map(magnitude => `
-                            <li>
-                                <h2>${magnitude.name} (${magnitude.unit})</h2>
-                                <p>${magnitude.description}</p>
-                                <a href="${magnitude.link}" target="_blank">Más información</a>
-                            </li>
-                        `).join('')}
-                    </ul>
-                `;
-                document.body.appendChild(magnitudesContainer);
-            })
-            .catch(error => console.error('Error al cargar el JSON:', error));
-    });
+// Llamar a la función para obtener datos sísmicos
+fetchEarthquakeData();
