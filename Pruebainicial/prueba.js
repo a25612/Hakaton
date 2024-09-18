@@ -31,6 +31,35 @@ function fetchEarthquakeData() {
 
 // Llamar a la función para obtener datos sísmicos
 fetchEarthquakeData();
+// Función para obtener y mostrar los incendios forestales
+function fetchWildfireData() {
+    fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
+        .then(response => response.json())
+        .then(data => {
+            data.events.forEach(event => {
+                var category = event.categories[0].title;
+                
+                // Filtrar solo los eventos de tipo "Wildfires"
+                if (category === 'Wildfires' && event.geometry && event.geometry[0].type === 'Point') {
+                    var coords = event.geometry[0].coordinates;
+                    var title = event.title;
+                    var date = new Date(event.geometry[0].date).toLocaleString(); // Convertir la fecha a formato legible
+
+                    L.circle([coords[1], coords[0]], {
+                        color: 'blue',
+                        fillColor: '#f06',
+                        fillOpacity: 0.7,
+                        radius: 50000 // Radio fijo para incendios
+                    }).addTo(map)
+                      .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener los datos de EONET:', error));
+}
+
+// Llamar a la función para obtener los datos de incendios forestales
+fetchWildfireData();
 
 // Función para mostrar/ocultar la leyenda
 document.getElementById('about-btn').addEventListener('click', function() {
