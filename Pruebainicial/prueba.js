@@ -6,26 +6,27 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// Función para obtener y mostrar los datos sísmicos
 function fetchEarthquakeData() {
-    fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson')
+    fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
         .then(response => response.json())
         .then(data => {
-            data.features.forEach(feature => {
-                var coords = feature.geometry.coordinates;
-                var magnitude = feature.properties.mag;
-                var location = feature.properties.place;
+            data.events.forEach(event => {
+                if (event.geometry && event.geometry[0].type === 'Point') {
+                    var coords = event.geometry[0].coordinates;
+                    var title = event.title;
+                    var category = event.categories[0].title;
 
-                L.circle([coords[1], coords[0]], {
-                    color: 'brown',
-                    fillColor: '#f03',
-                    fillOpacity: 0.5,
-                    radius: magnitude * 10000
-                }).addTo(map)
-                  .bindPopup(`<b>Magnitud:</b> ${magnitude}<br><b>Ubicación:</b> ${location}`);
+                    L.circle([coords[1], coords[0]], {
+                        color: 'brown',
+                        fillColor: '#f03',
+                        fillOpacity: 0.5,
+                        radius: 100 // Radio fijo, ya que no hay magnitud
+                    }).addTo(map)
+                      .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}`);
+                }
             });
         })
-        .catch(error => console.error('Error fetching earthquake data:', error));
+        .catch(error => console.error('Error fetching EONET data:', error));
 }
 
 // Llamar a la función para obtener datos sísmicos
