@@ -12,7 +12,7 @@
 <body>
     <div class="navbar">
         <a href="#home">Inicio</a>
-        <a href="#about">Acerca de</a>
+        <a href="#about" id="about-btn">Acerca de</a>
         <a href="#contact">Contacto</a>
     </div>
 
@@ -22,7 +22,13 @@
         <div id="map"></div> <!-- Mapa dentro de una caja -->
     </div>
 
-    <!-- Leaflet JS -->
+    <!-- Contenedor para la leyenda -->
+    <div id="legend" class="legend">
+        <h3>Leyenda</h3>
+        <p><span class="circle"></span> Terremotos</p>
+    </div>
+    
+
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <!-- Archivo JavaScript personalizado -->
     <script src="prueba.js"></script>

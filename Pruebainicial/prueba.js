@@ -1,5 +1,3 @@
-// script.js
-
 // Crear el mapa
 var map = L.map('map').setView([0, 0], 2);
 
@@ -32,3 +30,23 @@ function fetchEarthquakeData() {
 
 // Llamar a la función para obtener datos sísmicos
 fetchEarthquakeData();
+
+// Función para mostrar/ocultar la leyenda
+document.getElementById('about-btn').addEventListener('click', function() {
+    var legend = document.getElementById('legend');
+    var aboutButton = document.getElementById('about-btn');
+    
+    // Obtener la posición del botón "Acerca de"
+    var rect = aboutButton.getBoundingClientRect();
+    
+    // Ajustar la posición de la leyenda
+    legend.style.top = rect.bottom + 'px';
+    legend.style.left = rect.left + 'px';
+
+    // Alternar visibilidad de la leyenda
+    if (legend.style.display === 'none' || legend.style.display === '') {
+        legend.style.display = 'block';
+    } else {
+        legend.style.display = 'none';
+    }
+});

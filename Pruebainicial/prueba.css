@@ -38,8 +38,53 @@
 
 /* Estilos para el mapa */
 #map {
-    height: 500px;  /* Altura del mapa */
-    border: 2px solid #000000;  /* Borde del mapa */
+    height: 500px;  
+    border: 2px solid #000000; 
     border-radius: 6px;
 }
-   
+
+/* Estilos para la leyenda */
+.legend {
+    display: none;
+    position: absolute;
+    top: 50px; 
+    left: 0;
+    background: rgba(255, 255, 255);
+    padding: 15px;
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+    width: 200px;
+}
+
+.legend h3 {
+    margin: 0;
+    padding-bottom: 10px;
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+    color: #333; 
+}
+
+.legend p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.legend span {
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+.legend .circle {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #f03; 
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
