@@ -1,26 +1,29 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
 
- body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-  }
 .navbar {
-            position: static;
-            background-color: #333;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-        }
-        .navbar a {
-    
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
-        }
-        .navbar a:hover {
-            text-decoration: underline;
-        }
-        /* Estilos para el contenedor del mapa */
+    position: static;
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+}
+
+.navbar a {
+
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para el contenedor del mapa */
 .map-container {
     width: 80%;
     margin: 20px auto;
@@ -38,8 +41,8 @@
 
 /* Estilos para el mapa */
 #map {
-    height: 500px;  
-    border: 2px solid #000000; 
+    height: 500px;
+    border: 2px solid #000000;
     border-radius: 6px;
 }
 
@@ -47,13 +50,13 @@
 .legend {
     display: none;
     position: absolute;
-    top: 50px; 
+    top: 50px;
     left: 0;
     background: rgba(255, 255, 255);
     padding: 15px;
-    border: 1px solid #ddd; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
     z-index: 1000;
     width: 200px;
@@ -64,7 +67,7 @@
     padding-bottom: 10px;
     font-size: 18px;
     border-bottom: 1px solid #ddd;
-    color: #333; 
+    color: #333;
 }
 
 .legend p {
@@ -82,9 +85,8 @@
     display: inline-block;
     width: 12px;
     height: 12px;
-    background-color: #f03; 
+    background-color: #f03;
     border-radius: 50%;
     margin-right: 8px;
     vertical-align: middle;
 }
-
