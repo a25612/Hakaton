@@ -43,17 +43,16 @@ function fetchWildfireData() {
             data.events.forEach(event => {
                 var category = event.categories[0].title;
 
-                // Filtrar solo los eventos de tipo "Wildfires"
                 if (category === 'Wildfires' && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
                     var title = event.title;
-                    var date = new Date(event.geometry[0].date).toLocaleString(); // Convertir la fecha a formato legible
+                    var date = new Date(event.geometry[0].date).toLocaleString(); 
 
                     L.circle([coords[1], coords[0]], {
                         color: 'blue',
                         fillColor: 'blue',
                         fillOpacity: 0.7,
-                        radius: 50000 // Radio fijo para incendios
+                        radius: 50000 
                     }).addTo(map)
                         .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
                 }
@@ -64,6 +63,61 @@ function fetchWildfireData() {
 
 // Llamar a la función para obtener los datos de incendios forestales
 fetchWildfireData();
+
+function fetchIcebergData() {
+    fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
+        .then(response => response.json())
+        .then(data => {
+            data.events.forEach(event => {
+                var category = event.categories[0].title;
+
+                if (category === 'Sea and Lake Ice' && event.geometry && event.geometry[0].type === 'Point') {
+                    var coords = event.geometry[0].coordinates;
+                    var title = event.title;
+                    var date = new Date(event.geometry[0].date).toLocaleString(); 
+
+                    L.circle([coords[1], coords[0]], {
+                        color: 'red',
+                        fillColor: 'red',
+                        fillOpacity: 0.7,
+                        radius: 50000 
+                    }).addTo(map)
+                        .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener los datos de EONET:', error));
+}
+
+fetchIcebergData();
+
+
+function fetchStormData() {
+    fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
+        .then(response => response.json())
+        .then(data => {
+            data.events.forEach(event => {
+                var category = event.categories[0].title;
+
+                if (category === 'Severe Storms' && event.geometry && event.geometry[0].type === 'Point') {
+                    var coords = event.geometry[0].coordinates;
+                    var title = event.title;
+                    var date = new Date(event.geometry[0].date).toLocaleString(); 
+
+                    L.circle([coords[1], coords[0]], {
+                        color: 'green',
+                        fillColor: 'green',
+                        fillOpacity: 0.7,
+                        radius: 50000 
+                    }).addTo(map)
+                        .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener los datos de EONET:', error));
+}
+
+fetchStormData();
 
 // Función para mostrar/ocultar la leyenda
 document.getElementById('about-btn').addEventListener('click', function () {
