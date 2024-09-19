@@ -19,13 +19,15 @@ function fetchVolcanoData() {
                     var title = event.title;
                     var date = new Date(event.geometry[0].date).toLocaleString(); // Convertir la fecha a formato legible
 
-                    L.circle([coords[1], coords[0]], {
-                        color: 'orange',    // Cambiar el color para volcanes
-                        fillColor: '#f60',
-                        fillOpacity: 0.7,
-                        radius: 70000       // Radio ajustado para volcanes
-                    }).addTo(map)
+                    var customIcon = L.icon({
+                        iconUrl: 'icons/volcano.png',
+                        iconSize: [22, 22],  
+                                            });
+
+                    L.marker([coords[1], coords[0]], { icon: customIcon })
+                        .addTo(map)
                         .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
+
                 }
             });
         })
@@ -35,6 +37,7 @@ function fetchVolcanoData() {
 // Llamar a la función para obtener los datos de volcanes
 fetchVolcanoData();
 
+
 // Función para obtener y mostrar los incendios forestales
 function fetchWildfireData() {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
@@ -43,17 +46,21 @@ function fetchWildfireData() {
             data.events.forEach(event => {
                 var category = event.categories[0].title;
 
+                // Filtrar solo los eventos de tipo "Wildfires"
                 if (category === 'Wildfires' && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
                     var title = event.title;
-                    var date = new Date(event.geometry[0].date).toLocaleString(); 
+                    var date = new Date(event.geometry[0].date).toLocaleString(); // Convertir la fecha a formato legible
 
-                    L.circle([coords[1], coords[0]], {
-                        color: 'blue',
-                        fillColor: 'blue',
-                        fillOpacity: 0.7,
-                        radius: 50000 
-                    }).addTo(map)
+                    // Define el ícono personalizado
+                    var customIcon = L.icon({
+                        iconUrl: 'icons/wildfire.png', // Cambia esto por la ruta de tu icono descargado
+                        iconSize: [22, 22],  // Ajusta el tamaño del ícono
+                                            });
+
+                    // Crear un marcador con el ícono personalizado y añadirlo al mapa
+                    L.marker([coords[1], coords[0]], { icon: customIcon })
+                        .addTo(map)
                         .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
                 }
             });
@@ -76,13 +83,15 @@ function fetchIcebergData() {
                     var title = event.title;
                     var date = new Date(event.geometry[0].date).toLocaleString(); 
 
-                    L.circle([coords[1], coords[0]], {
-                        color: 'red',
-                        fillColor: 'red',
-                        fillOpacity: 0.7,
-                        radius: 50000 
-                    }).addTo(map)
+                    var customIcon = L.icon({
+                        iconUrl: 'icons/ice.png',
+                        iconSize: [22, 22],  
+                                            });
+
+                    L.marker([coords[1], coords[0]], { icon: customIcon })
+                        .addTo(map)
                         .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
+
                 }
             });
         })
@@ -104,13 +113,15 @@ function fetchStormData() {
                     var title = event.title;
                     var date = new Date(event.geometry[0].date).toLocaleString(); 
 
-                    L.circle([coords[1], coords[0]], {
-                        color: 'green',
-                        fillColor: 'green',
-                        fillOpacity: 0.7,
-                        radius: 50000 
-                    }).addTo(map)
+                    var customIcon = L.icon({
+                        iconUrl: 'icons/storm.png',
+                        iconSize: [22, 22],  
+                                            });
+
+                    L.marker([coords[1], coords[0]], { icon: customIcon })
+                        .addTo(map)
                         .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
+
                 }
             });
         })
