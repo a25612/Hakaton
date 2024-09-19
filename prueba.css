@@ -12,12 +12,19 @@ body {
 }
 
 .navbar a {
-
-    color: #fff;
+    color: white;
     text-decoration: none;
-    margin: 0 15px;
-    font-size: 18px;
+    padding: 14px 20px;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+    cursor: pointer;
+    font-size: 16px;
 }
+.navbar a:hover {
+    background-color: #007BFF; /* Cambia a azul al hacer hover */
+    transform: scale(1.2); /* Aumenta el tamaño al hacer hover */
+}
+
 
 .navbar a:hover {
     text-decoration: underline;
@@ -52,16 +59,16 @@ body {
     position: absolute;
     top: 50px;  /* Ajusta según el diseño que quieras */
     left: 20px; /* Fijamos la leyenda a la izquierda */
-    background: rgba(255, 255, 255);
+    background: rgb(238, 224, 224);
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
     z-index: 1000;
-    width: 200px;
+    width: 150px;
 }
-
+ .
 
 .legend h3 {
     margin: 0;
@@ -77,9 +84,20 @@ body {
     color: #555;
 }
 
-.legend span {
+.legend button{
+    border: none;
+    background-color: transparent;+
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Color de fondo inicial */
+    color: white;
+    border: none;
     font-size: 16px;
-    vertical-align: middle;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+    cursor: pointer;
+}
+.legend-button:hover {
+    background-color: #007BFF; /* Cambia a azul al hacer hover */
+    transform: scale(1.2); /* Aumenta el tamaño al hacer hover */
 }
 
 .legend .circle {
