@@ -50,8 +50,8 @@ body {
 .legend {
     display: none;
     position: absolute;
-    top: 50px;
-    left: 0;
+    top: 50px;  /* Ajusta según el diseño que quieras */
+    left: 20px; /* Fijamos la leyenda a la izquierda */
     background: rgba(255, 255, 255);
     padding: 15px;
     border: 1px solid #ddd;
@@ -61,6 +61,7 @@ body {
     z-index: 1000;
     width: 200px;
 }
+
 
 .legend h3 {
     margin: 0;

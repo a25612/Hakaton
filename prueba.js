@@ -51,7 +51,7 @@ function fetchWildfireData() {
 
                     L.circle([coords[1], coords[0]], {
                         color: 'blue',
-                        fillColor: '#f06',
+                        fillColor: 'blue',
                         fillOpacity: 0.7,
                         radius: 50000 // Radio fijo para incendios
                     }).addTo(map)
@@ -68,14 +68,10 @@ fetchWildfireData();
 // Función para mostrar/ocultar la leyenda
 document.getElementById('about-btn').addEventListener('click', function () {
     var legend = document.getElementById('legend');
-    var aboutButton = document.getElementById('about-btn');
 
-    // Obtener la posición del botón "Acerca de"
-    var rect = aboutButton.getBoundingClientRect();
-
-    // Ajustar la posición de la leyenda
-    legend.style.top = rect.bottom + 'px';
-    legend.style.left = rect.left + 'px';
+    // Ajustar la posición de la leyenda a la izquierda
+    legend.style.top = '50px';  // Ajustamos el top si lo necesitas
+    legend.style.left = '20px'; // Ponemos la leyenda a la izquierda del mapa
 
     // Alternar visibilidad de la leyenda
     if (legend.style.display === 'none' || legend.style.display === '') {
