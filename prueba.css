@@ -12,22 +12,20 @@ body {
 }
 
 .navbar a {
-    color: white;
+    margin-left: 30px;
     text-decoration: none;
+    color: white;
     padding: 14px 20px;
     display: inline-block;
     transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
     cursor: pointer;
     font-size: 16px;
+    border-radius: 8px;
 }
 .navbar a:hover {
-    background-color: #007BFF; /* Cambia a azul al hacer hover */
-    transform: scale(1.2); /* Aumenta el tamaño al hacer hover */
-}
-
-
-.navbar a:hover {
-    text-decoration: underline;
+    border-radius: 8px;
+    background-color: #6fa8e6;
+    transform: scale(1.2); 
 }
 
 /* Estilos para el contenedor del mapa */
@@ -46,19 +44,20 @@ body {
     margin-bottom: 11px;
 }
 
-/* Estilos para el mapa */
 #map {
+    margin-left: 200px;
     height: 500px;
-    border: 2px solid #000000;
+    border: 2px solid #0a9168;
     border-radius: 6px;
 }
 
-/* Estilos para la leyenda */
+
 .legend {
     display: none;
     position: absolute;
-    top: 50px;  /* Ajusta según el diseño que quieras */
-    left: 20px; /* Fijamos la leyenda a la izquierda */
+    margin-top:26px; 
+    left: 0; 
+    opacity: 95%;
     background: rgb(255, 255, 255);
     padding: 15px;
     border: 1px solid #ddd;
@@ -66,7 +65,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
     z-index: 1000;
-    width: 150px;
+    width: 250px;
 }
 
 .legend p {
@@ -76,33 +75,30 @@ body {
 }
 
 .legend button{
+    width: 250px;
+    height:55px ;
+    margin-bottom: 7px;
     border: none;
     background-color: transparent;
-    padding: 10px 20px;
-    background-color: #ffffff; /* Color de fondo inicial */
+    padding: 7px 15px;
+    background-color: #d3f1f1; 
     color: white;
     border: none;
+    border-radius: 8px;
     font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+    transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
 .legend-button:hover {
-    background-color: #007BFF; /* Cambia a azul al hacer hover */
-    transform: scale(1.2); /* Aumenta el tamaño al hacer hover */
+    background-color: #6fa8e6; 
+    transform: scale(1.2); 
     border-radius: 10px;
 }
+.legend-icon{
+    margin-left: 0px;
+    height: 27px;
 
-.legend .circle {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    background-color: rgb(0, 0, 0);
-    border-radius: 50%;
-    margin-right: 8px;
-    vertical-align: middle;
 }
-
-/* Estilos para el filtro */
 .filter-container {
     text-align: center;
     margin: 20px 0;
@@ -123,5 +119,7 @@ body {
 }
 
 #filter-btn:hover {
-    background-color: #555;
+    border-radius: 8px;
+    background-color: #6fa8e6;
+    transform: scale(1.2); 
 }
