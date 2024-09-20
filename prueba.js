@@ -157,28 +157,29 @@ function filterEventsByDate(events, startDate, endDate) {
     });
 }
 
-// Función para mostrar los eventos filtrados en el mapa
 function displayFilteredEvents(events) {
-    map.eachLayer(layer => {
-        if (layer instanceof L.Circle) {
-            map.removeLayer(layer);  // Elimina los círculos anteriores
-        }
-    });
-
+    clearMap();
     events.forEach(event => {
         var coords = event.geometry[0].coordinates;
         var title = event.title;
         var category = event.categories[0].title;
         var date = new Date(event.geometry[0].date).toLocaleString();
 
-        var color = category === 'Wildfires' ? 'blue' : 'brown'; // Incendios y terremotos
+        // Definir el ícono personalizado según la categoría
+        var iconUrl = '';
+        if (category === 'Volcanoes') iconUrl = 'icons/volcano.png';
+        if (category === 'Wildfires') iconUrl = 'icons/wildfire.png';
+        if (category === 'Sea and Lake Ice') iconUrl = 'icons/ice.png';
+        if (category === 'Severe Storms') iconUrl = 'icons/storm.png';
 
-        L.circle([coords[1], coords[0]], {
-            color: color,
-            fillColor: '#f03',
-            fillOpacity: 0.5,
-            radius: 100
-        }).addTo(map)
+        var customIcon = L.icon({
+            iconUrl: iconUrl,
+            iconSize: [22, 22]
+        });
+
+        // Crear un marcador con el ícono personalizado
+        L.marker([coords[1], coords[0]], { icon: customIcon })
+            .addTo(map)
             .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
     });
 }
