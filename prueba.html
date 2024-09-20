@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página con Mapa Interactivo</title>
     <link rel="shortcut icon" type="image/icon" href="Mundo.png" />
@@ -11,10 +12,11 @@
     <!-- CSS personalizado -->
     <link rel="stylesheet" href="prueba.css" />
 </head>
+
 <body>
     <div class="navbar">
-        <a href="#about" id="about-btn">Leyenda</a>     
-        <a href="https://eonet.gsfc.nasa.gov/" target="_blank">Eonet</a>  
+        <a href="#about" id="about-btn">Leyenda</a>
+        <a href="https://eonet.gsfc.nasa.gov/" target="_blank">Eonet</a>
         <a href="#contact">Contacto</a>
     </div>
 
@@ -35,63 +37,28 @@
 
     <!-- Contenedor para la leyenda -->
     <div id="legend" class="legend">
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/drought.png" alt="icono" class="icon"> 
-            <span>Drought</span>
-        </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/dust.png" alt="icono" class="icon"> 
-            <span>Dust and Haze</span>
-        </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/earthquake.png" alt="icono" class="icon"> 
-            <span>Earthquakes</span>
-        </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/flood.png" alt="icono" class="icon"> 
-            <span>Floods</span>
-        </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/handmade.png" alt="icono" class="icon"> 
-            <span>Manmade</span>
-        </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/landslide.png" alt="icono" class="icon"> 
-            <span>Landslides</span>
-        </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/ice.png" alt="icono" class="icon"> 
+        <button id="iceberg-btn" class="legend-button">
+            <img class="legend-icon" src="icons/ice.png" alt="icono" class="icon">
             <span>Sea and Lake Ice</span>
         </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/storm.png" alt="icono" class="icon"> 
+        <button id="storms-btn" class="legend-button">
+            <img class="legend-icon" src="icons/storm.png" alt="icono" class="icon">
             <span>Severe Storms</span>
         </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/snow.png" alt="icono" class="icon"> 
-            <span>Snow</span>
-        </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/tempextreme.png" alt="icono" class="icon"> 
-            <span>X Temperatures</span>
-        </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/volcano.png" alt="icono" class="icon"> 
+        <button id="volcanoes-btn" class="legend-button">
+            <img class="legend-icon" src="icons/volcano.png" alt="icono" class="icon">
             <span>Volcanoes</span>
         </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/watercolor.png" alt="icono" class="icon"> 
-            <span>Water Color</span>
-        </button>
-        <button class="legend-button">
-            <img  class="legend-icon" src="icons/wildfire.png" alt="icono" class="icon"> 
+        <button id="wildfires-btn" class="legend-button">
+            <img class="legend-icon" src="icons/wildfire.png" alt="icono" class="icon">
             <span>Wildfires</span>
         </button>
-    </div> 
-    
+    </div>
+
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <!-- Archivo JavaScript personalizado -->
     <script src="prueba.js"></script>
 </body>
+
 </html>

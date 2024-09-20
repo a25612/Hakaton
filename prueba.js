@@ -21,8 +21,8 @@ function fetchVolcanoData() {
 
                     var customIcon = L.icon({
                         iconUrl: 'icons/volcano.png',
-                        iconSize: [22, 22],  
-                                            });
+                        iconSize: [22, 22],
+                    });
 
                     L.marker([coords[1], coords[0]], { icon: customIcon })
                         .addTo(map)
@@ -56,7 +56,7 @@ function fetchWildfireData() {
                     var customIcon = L.icon({
                         iconUrl: 'icons/wildfire.png', // Cambia esto por la ruta de tu icono descargado
                         iconSize: [22, 22],  // Ajusta el tamaño del ícono
-                                            });
+                    });
 
                     // Crear un marcador con el ícono personalizado y añadirlo al mapa
                     L.marker([coords[1], coords[0]], { icon: customIcon })
@@ -81,12 +81,12 @@ function fetchIcebergData() {
                 if (category === 'Sea and Lake Ice' && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
                     var title = event.title;
-                    var date = new Date(event.geometry[0].date).toLocaleString(); 
+                    var date = new Date(event.geometry[0].date).toLocaleString();
 
                     var customIcon = L.icon({
                         iconUrl: 'icons/ice.png',
-                        iconSize: [22, 22],  
-                                            });
+                        iconSize: [22, 22],
+                    });
 
                     L.marker([coords[1], coords[0]], { icon: customIcon })
                         .addTo(map)
@@ -111,12 +111,12 @@ function fetchStormData() {
                 if (category === 'Severe Storms' && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
                     var title = event.title;
-                    var date = new Date(event.geometry[0].date).toLocaleString(); 
+                    var date = new Date(event.geometry[0].date).toLocaleString();
 
                     var customIcon = L.icon({
                         iconUrl: 'icons/storm.png',
-                        iconSize: [22, 22],  
-                                            });
+                        iconSize: [22, 22],
+                    });
 
                     L.marker([coords[1], coords[0]], { icon: customIcon })
                         .addTo(map)
@@ -202,4 +202,69 @@ document.getElementById('filter-btn').addEventListener('click', function () {
     } else {
         alert('Por favor, selecciona un rango de fechas válido.');
     }
+});
+
+// Función para limpiar el mapa
+function clearMap() {
+    map.eachLayer(function (layer) {
+        // Mantener la capa del mapa base
+        if (layer instanceof L.TileLayer) {
+            return;
+        }
+        map.removeLayer(layer);
+    });
+}
+
+// Función para mostrar solo los eventos de una categoría seleccionada
+function showEventsByCategory(category) {
+    fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
+        .then(response => response.json())
+        .then(data => {
+            // Limpiar el mapa antes de mostrar los nuevos eventos
+            clearMap();
+
+            // Filtrar y mostrar eventos de la categoría seleccionada
+            data.events.forEach(event => {
+                if (event.categories[0].title === category && event.geometry && event.geometry[0].type === 'Point') {
+                    var coords = event.geometry[0].coordinates;
+                    var title = event.title;
+                    var date = new Date(event.geometry[0].date).toLocaleString(); // Convertir la fecha a formato legible
+
+                    // Definir el ícono personalizado según la categoría
+                    var iconUrl = '';
+                    if (category === 'Volcanoes') iconUrl = 'icons/volcano.png';
+                    if (category === 'Wildfires') iconUrl = 'icons/wildfire.png';
+                    if (category === 'Sea and Lake Ice') iconUrl = 'icons/ice.png';
+                    if (category === 'Severe Storms') iconUrl = 'icons/storm.png';
+
+                    var customIcon = L.icon({
+                        iconUrl: iconUrl,
+                        iconSize: [22, 22]
+                    });
+
+                    // Añadir el marcador al mapa
+                    L.marker([coords[1], coords[0]], { icon: customIcon })
+                        .addTo(map)
+                        .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener los datos de EONET:', error));
+}
+
+// Añadir eventos de clic a los botones de la leyenda
+document.getElementById('volcanoes-btn').addEventListener('click', function () {
+    showEventsByCategory('Volcanoes');
+});
+
+document.getElementById('wildfires-btn').addEventListener('click', function () {
+    showEventsByCategory('Wildfires');
+});
+
+document.getElementById('iceberg-btn').addEventListener('click', function () {
+    showEventsByCategory('Sea and Lake Ice');
+});
+
+document.getElementById('storms-btn').addEventListener('click', function () {
+    showEventsByCategory('Severe Storms');
 });

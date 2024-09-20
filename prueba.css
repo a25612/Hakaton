@@ -5,7 +5,7 @@ body {
 
 .navbar {
     position: static;
-    background-color: #333;
+    background-color: #4169b8;
     color: #fff;
     padding: 15px;
     text-align: center;
@@ -17,20 +17,22 @@ body {
     color: white;
     padding: 14px 20px;
     display: inline-block;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* Transiciones suaves */
     cursor: pointer;
     font-size: 16px;
     border-radius: 8px;
 }
+
 .navbar a:hover {
     border-radius: 8px;
     background-color: #6fa8e6;
-    transform: scale(1.2); 
+    transform: scale(1.2);
 }
 
 /* Estilos para el contenedor del mapa */
 .map-container {
-    width: 80%;
+    width: 50%;
     margin: 20px auto;
     padding: 20px;
     background-color: #f4f4f4;
@@ -45,7 +47,6 @@ body {
 }
 
 #map {
-    margin-left: 200px;
     height: 500px;
     border: 2px solid #0a9168;
     border-radius: 6px;
@@ -55,8 +56,8 @@ body {
 .legend {
     display: none;
     position: absolute;
-    margin-top:26px; 
-    left: 0; 
+    margin-top: 26px;
+    left: 0;
     opacity: 95%;
     background: rgb(255, 255, 255);
     padding: 15px;
@@ -74,14 +75,14 @@ body {
     color: #555;
 }
 
-.legend button{
+.legend button {
     width: 250px;
-    height:55px ;
+    height: 55px;
     margin-bottom: 7px;
     border: none;
     background-color: transparent;
     padding: 7px 15px;
-    background-color: #d3f1f1; 
+    background-color: #000000;
     color: white;
     border: none;
     border-radius: 8px;
@@ -89,22 +90,26 @@ body {
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
+
 .legend-button:hover {
-    background-color: #6fa8e6; 
-    transform: scale(1.2); 
+    background-color: #4169b8;
+    transform: scale(1.05);
     border-radius: 10px;
 }
-.legend-icon{
+
+.legend-icon {
     margin-left: 0px;
     height: 27px;
 
 }
+
 .filter-container {
     text-align: center;
     margin: 20px 0;
 }
 
-.filter-container label, .filter-container input {
+.filter-container label,
+.filter-container input {
     margin: 0 10px;
     font-size: 16px;
 }
@@ -121,5 +126,5 @@ body {
 #filter-btn:hover {
     border-radius: 8px;
     background-color: #6fa8e6;
-    transform: scale(1.2); 
+    transform: scale(1.2);
 }
