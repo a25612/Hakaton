@@ -130,3 +130,25 @@ body {
     background-color: #6fa8e6;
     transform: scale(1.2);
 }
+
+#globe {
+    height: 500px;
+    width: 100%;
+    margin: 20px auto;
+}
+
+#globe-container {
+    display: none;
+}
+
+#toggle-view-btn {
+    float: right;
+    margin-right: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4169b8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

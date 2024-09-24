@@ -20,10 +20,18 @@
         <a href="#contact">Contacto</a>
     </div>
 
+    <button id="toggle-view-btn">Cambiar a Mapa 3D</button>
+
     <!-- Contenedor de la caja -->
     <div class="map-container">
-        <h2>Natural event tracker</h2>
+        <h2>Natural event tracker - 2D Map</h2>
         <div id="map"></div> <!-- Mapa dentro de una caja -->
+    </div>
+
+    <!-- Contenedor del globo 3D -->
+    <div id="globe-container" class="map-container">
+        <h2>Natural event tracker - 3D Globe</h2>
+        <div id="globe"></div> <!-- Globo 3D dentro de una caja -->
     </div>
 
     <!-- Contenedor del filtro de fechas -->
@@ -57,7 +65,9 @@
 
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <!-- Archivo JavaScript personalizado -->
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.94/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.94/Build/Cesium/Cesium.js"></script>
+
     <script src="prueba.js"></script>
 </body>
 

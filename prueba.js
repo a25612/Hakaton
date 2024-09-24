@@ -17,6 +17,24 @@ var osmCartoDB = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x
     maxZoom: 19
 });
 
+// Crear el visor de CesiumJS en 3D
+var viewer = new Cesium.Viewer('globe', {
+    imageryProvider: new Cesium.OpenStreetMapImageryProvider({
+        url : 'https://a.tile.openstreetmap.org/'
+    }),
+    baseLayerPicker: true,
+    geocoder: true,
+    sceneModePicker: true,
+    timeline: true,
+    animation: true,
+    fullscreenButton: true,
+    navigationHelpButton: true,
+});
+
+// Centrar el visor en una ubicación específica
+viewer.camera.setView({
+    destination : Cesium.Cartesian3.fromDegrees(0.0, 0.0, 20000000.0)
+});
 
 // Agregar la capa estándar por defecto
 osmStandard.addTo(map);
@@ -294,3 +312,149 @@ document.getElementById('iceberg-btn').addEventListener('click', function () {
 document.getElementById('storms-btn').addEventListener('click', function () {
     showEventsByCategory('Severe Storms');
 });
+
+// Funcion de boton para alternar entre 2D y 3D
+document.getElementById('toggle-view-btn').addEventListener('click', function() {
+    var mapContainer = document.querySelector('.map-container');  
+    var globeContainer = document.getElementById('globe-container');  
+
+    if (mapContainer.style.display === 'none') {
+        mapContainer.style.display = 'block';
+        globeContainer.style.display = 'none';
+        this.textContent = 'Cambiar a Mapa 3D';
+    } else {
+        mapContainer.style.display = 'none';
+        globeContainer.style.display = 'block';
+        this.textContent = 'Cambiar a Mapa 2D';
+    }
+});
+
+
+// Añadir eventos al mapa 3D
+function addVolcanoesToGlobe() {
+    fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
+        .then(response => response.json())
+        .then(data => {
+            data.events.forEach(event => {
+                var category = event.categories[0].title;
+
+                // Filtrar eventos de volcanes
+                if (category === 'Volcanoes' && event.geometry && event.geometry[0].type === 'Point') {
+                    var coords = event.geometry[0].coordinates;
+                    var title = event.title;
+                    var date = new Date(event.geometry[0].date).toLocaleString();
+
+                    // Agregar un marcador al globo terráqueo 3D
+                    viewer.entities.add({
+                        name: title,
+                        position: Cesium.Cartesian3.fromDegrees(coords[0], coords[1]),
+                        billboard: {
+                            image: 'icons/volcano.png',
+                            width: 40,
+                            height: 40
+                        },
+                        description: `<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`
+                    });
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener los datos de EONET:', error));
+}
+
+addVolcanoesToGlobe();
+
+function addIcebergsToGlobe() {
+    fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
+        .then(response => response.json())
+        .then(data => {
+            data.events.forEach(event => {
+                var category = event.categories[0].title;
+
+                // Filtrar eventos de volcanes
+                if (category === 'Sea and Lake Ice' && event.geometry && event.geometry[0].type === 'Point') {
+                    var coords = event.geometry[0].coordinates;
+                    var title = event.title;
+                    var date = new Date(event.geometry[0].date).toLocaleString();
+
+                    // Agregar un marcador al globo terráqueo 3D
+                    viewer.entities.add({
+                        name: title,
+                        position: Cesium.Cartesian3.fromDegrees(coords[0], coords[1]),
+                        billboard: {
+                            image: 'icons/ice.png',
+                            width: 40,
+                            height: 40
+                        },
+                        description: `<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`
+                    });
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener los datos de EONET:', error));
+}
+
+addIcebergsToGlobe();
+
+function addStormsToGlobe() {
+    fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
+        .then(response => response.json())
+        .then(data => {
+            data.events.forEach(event => {
+                var category = event.categories[0].title;
+
+                // Filtrar eventos de volcanes
+                if (category === 'Severe Storms' && event.geometry && event.geometry[0].type === 'Point') {
+                    var coords = event.geometry[0].coordinates;
+                    var title = event.title;
+                    var date = new Date(event.geometry[0].date).toLocaleString();
+
+                    // Agregar un marcador al globo terráqueo 3D
+                    viewer.entities.add({
+                        name: title,
+                        position: Cesium.Cartesian3.fromDegrees(coords[0], coords[1]),
+                        billboard: {
+                            image: 'icons/storm.png',
+                            width: 40,
+                            height: 40
+                        },
+                        description: `<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`
+                    });
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener los datos de EONET:', error));
+}
+
+addStormsToGlobe();
+
+function addWildfiresToGlobe() {
+    fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
+        .then(response => response.json())
+        .then(data => {
+            data.events.forEach(event => {
+                var category = event.categories[0].title;
+
+                // Filtrar eventos de volcanes
+                if (category === 'Wildfires' && event.geometry && event.geometry[0].type === 'Point') {
+                    var coords = event.geometry[0].coordinates;
+                    var title = event.title;
+                    var date = new Date(event.geometry[0].date).toLocaleString();
+
+                    // Agregar un marcador al globo terráqueo 3D
+                    viewer.entities.add({
+                        name: title,
+                        position: Cesium.Cartesian3.fromDegrees(coords[0], coords[1]),
+                        billboard: {
+                            image: 'icons/storm.png',
+                            width: 40,
+                            height: 40
+                        },
+                        description: `<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`
+                    });
+                }
+            });
+        })
+        .catch(error => console.error('Error al obtener los datos de EONET:', error));
+}
+
+addWildfiresToGlobe();
