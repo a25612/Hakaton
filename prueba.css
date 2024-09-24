@@ -19,7 +19,6 @@ body {
     padding: 14px 20px;
     display: inline-block;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    /* Transiciones suaves */
     cursor: pointer;
     font-size: 16px;
     border-radius: 8px;
@@ -31,7 +30,6 @@ body {
     transform: scale(1.2);
 }
 
-/* Estilos para el contenedor del mapa */
 .map-container {
     width: 50%;
     margin: 20px auto;
@@ -143,12 +141,14 @@ body {
 
 #toggle-view-btn {
     float: right;
-    margin-right: 20px;
+    margin-right: 75px;
+    margin-top: 60px;
     padding: 10px 20px;
     font-size: 16px;
     background-color: #4169b8;
     color: white;
     border: none;
     border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
