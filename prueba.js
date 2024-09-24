@@ -17,10 +17,13 @@ var osmCartoDB = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x
     maxZoom: 19
 });
 
+// Reemplaza 'YOUR_CESIUM_ION_ACCESS_TOKEN' con tu propio token de Cesium Ion
+Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ZmVjNjQyZS0wOTZkLTQyMDctODcxZS0xMWJiZDdkNzE4YmEiLCJpZCI6MjQzNzk0LCJpYXQiOjE3MjcxOTg5OTh9.DRq4Ldf2HUb5bTDqxoDRbwWZnoaGTVS5-p449_ugAQc';
+
 // Crear el visor de CesiumJS en 3D
 var viewer = new Cesium.Viewer('globe', {
     imageryProvider: new Cesium.OpenStreetMapImageryProvider({
-        url : 'https://a.tile.openstreetmap.org/'
+        url: 'https://a.tile.openstreetmap.org/'
     }),
     baseLayerPicker: true,
     geocoder: true,
@@ -31,9 +34,10 @@ var viewer = new Cesium.Viewer('globe', {
     navigationHelpButton: true,
 });
 
+
 // Centrar el visor en una ubicación específica
 viewer.camera.setView({
-    destination : Cesium.Cartesian3.fromDegrees(0.0, 0.0, 20000000.0)
+    destination: Cesium.Cartesian3.fromDegrees(0.0, 0.0, 20000000.0)
 });
 
 // Agregar la capa estándar por defecto
@@ -264,10 +268,7 @@ function showEventsByCategory(category) {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
         .then(response => response.json())
         .then(data => {
-            // Limpiar el mapa antes de mostrar los nuevos eventos
-            clearMap();
 
-            // Filtrar y mostrar eventos de la categoría seleccionada
             data.events.forEach(event => {
                 if (event.categories[0].title === category && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
@@ -314,9 +315,9 @@ document.getElementById('storms-btn').addEventListener('click', function () {
 });
 
 // Funcion de boton para alternar entre 2D y 3D
-document.getElementById('toggle-view-btn').addEventListener('click', function() {
-    var mapContainer = document.querySelector('.map-container');  
-    var globeContainer = document.getElementById('globe-container');  
+document.getElementById('toggle-view-btn').addEventListener('click', function () {
+    var mapContainer = document.querySelector('.map-container');
+    var globeContainer = document.getElementById('globe-container');
 
     if (mapContainer.style.display === 'none') {
         mapContainer.style.display = 'block';
@@ -353,7 +354,7 @@ function addVolcanoesToGlobe() {
                             width: 40,
                             height: 40
                         },
-                        description: `<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`
+                        description: `<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b>${date}`
                     });
                 }
             });
