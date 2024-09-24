@@ -1,10 +1,36 @@
 // Crear el mapa
 var map = L.map('map').setView([0, 0], 2);
 
-// Agregar una capa de mapa base.
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+// Definir capas base de mapas
+var osmStandard = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19
+});
+
+var osmTopography = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="https://opentopomap.org">OpenTopoMap</a>',
+    maxZoom: 17
+});
+
+var osmCartoDB = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors & <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+});
+
+
+// Agregar la capa estándar por defecto
+osmStandard.addTo(map);
+
+// Crear un objeto para las capas base
+var baseMaps = {
+    "OpenStreetMap Standard": osmStandard,
+    "Topographic Map": osmTopography,
+    "CartoDB Positron": osmCartoDB
+};
+
+// Añadir control de capas al mapa para alternar entre las capas base
+L.control.layers(baseMaps).addTo(map);
 
 function fetchVolcanoData() {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
