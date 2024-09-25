@@ -17,7 +17,7 @@ var osmCartoDB = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x
     maxZoom: 19
 });
 
-// Reemplaza 'YOUR_CESIUM_ION_ACCESS_TOKEN' con tu propio token de Cesium Ion
+// Reemplaza 'ACCESS_TOKEN' con tu propio token de Cesium Ion, resgistrandote en la pagina 
 Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ZmVjNjQyZS0wOTZkLTQyMDctODcxZS0xMWJiZDdkNzE4YmEiLCJpZCI6MjQzNzk0LCJpYXQiOjE3MjcxOTg5OTh9.DRq4Ldf2HUb5bTDqxoDRbwWZnoaGTVS5-p449_ugAQc';
 
 // Crear el visor de CesiumJS en 3D
@@ -43,7 +43,7 @@ viewer.camera.setView({
 // Agregar la capa estándar por defecto
 osmStandard.addTo(map);
 
-// Crear un objeto para las capas base
+// Crear un objeto para las capas base para enseñarlas en la pantalla 
 var baseMaps = {
     "OpenStreetMap Standard": osmStandard,
     "Topographic Map": osmTopography,
@@ -297,7 +297,7 @@ function showEventsByCategory(category) {
         .catch(error => console.error('Error al obtener los datos de EONET:', error));
 }
 
-// Añadir eventos de clic a los botones de la leyenda
+// Añadir eventos de clic a los botones de la leyenda , luego enseñarlos en la pantalla 
 document.getElementById('volcanoes-btn').addEventListener('click', function () {
     showEventsByCategory('Volcanoes');
 });
