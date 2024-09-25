@@ -17,6 +17,10 @@ var osmCartoDB = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x
     maxZoom: 19
 });
 
+
+// Reemplaza 'ACCESS_TOKEN' con tu propio token de Cesium Ion, resgistrandote en la pagina 
+Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ZmVjNjQyZS0wOTZkLTQyMDctODcxZS0xMWJiZDdkNzE4YmEiLCJpZCI6MjQzNzk0LCJpYXQiOjE3MjcxOTg5OTh9.DRq4Ldf2HUb5bTDqxoDRbwWZnoaGTVS5-p449_ugAQc';
+
 // Crear el visor de CesiumJS en 3D
 var viewer = new Cesium.Viewer('globe', {
     imageryProvider: new Cesium.OpenStreetMapImageryProvider({
@@ -473,7 +477,7 @@ function addWildfiresToGlobe() {
                         name: title,
                         position: Cesium.Cartesian3.fromDegrees(coords[0], coords[1]),
                         billboard: {
-                            image: 'icons/storm.png',
+                            image: 'icons/wildfire.png',
                             width: 40,
                             height: 40
                         },

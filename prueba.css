@@ -30,6 +30,25 @@ body {
     transform: scale(1.2);
 }
 
+.filters-container{
+   color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 20px; 
+    left: 40%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+    padding: 20px ;
+    width: 500px;
+
+}
+
+
+
+
 .map-container {
     width: 50%;
     margin: 20px auto;
@@ -106,6 +125,8 @@ body {
     margin: 0 10px;
     font-size: 16px;
     color: white;
+     background-color: #000000;
+     opacity: 90%;
 }
 
 #filter-btn {
@@ -146,4 +167,14 @@ body {
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
+
+#toggle-view-btn:hover {
+    border-radius: 8px;
+    background-color: #6fa8e6;
+    transform: scale(1.2);
+}
+
+
+
+
 
