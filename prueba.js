@@ -446,7 +446,7 @@ function addWildfiresToGlobe() {
                         name: title,
                         position: Cesium.Cartesian3.fromDegrees(coords[0], coords[1]),
                         billboard: {
-                            image: 'icons/storm.png',
+                            image: 'icons/wildfire.png',
                             width: 40,
                             height: 40
                         },
