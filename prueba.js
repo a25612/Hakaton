@@ -20,7 +20,7 @@ var osmCartoDB = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x
 // Crear el visor de CesiumJS en 3D
 var viewer = new Cesium.Viewer('globe', {
     imageryProvider: new Cesium.OpenStreetMapImageryProvider({
-        url : 'https://a.tile.openstreetmap.org/'
+        url: 'https://a.tile.openstreetmap.org/'
     }),
     baseLayerPicker: true,
     geocoder: true,
@@ -33,7 +33,7 @@ var viewer = new Cesium.Viewer('globe', {
 
 // Centrar el visor en una ubicación específica
 viewer.camera.setView({
-    destination : Cesium.Cartesian3.fromDegrees(0.0, 0.0, 20000000.0)
+    destination: Cesium.Cartesian3.fromDegrees(0.0, 0.0, 20000000.0)
 });
 
 // Agregar la capa estándar por defecto
@@ -226,27 +226,72 @@ function displayFilteredEvents(events) {
             .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
     });
 }
+// Función para obtener eventos filtrados por categoría y fecha
+function filterEventsByDateAndCategory(events, startDate, endDate, selectedCategories) {
+    return events.filter(event => {
+        var eventDate = new Date(event.geometry[0].date);
+        var category = event.categories[0].title;
 
+        // Verificar si el evento está dentro del rango de fechas y la categoría está seleccionada
+        return eventDate >= startDate && eventDate <= endDate && selectedCategories.includes(category);
+    });
+}
+
+// Función para obtener las categorías seleccionadas por los checkboxes
+function getSelectedCategories() {
+    var categories = [];
+    if (document.getElementById('volcanoes').checked) categories.push('Volcanoes');
+    if (document.getElementById('wildfires').checked) categories.push('Wildfires');
+    if (document.getElementById('storms').checked) categories.push('Severe Storms');
+    if (document.getElementById('icebergs').checked) categories.push('Sea and Lake Ice');
+    if (document.getElementById('all-events').checked) categories = ['Volcanoes', 'Wildfires', 'Severe Storms', 'Sea and Lake Ice']; // Selección de "Todos los eventos"
+    return categories;
+}
+
+// Lógica para desactivar los checkboxes individuales si se selecciona "Todos los eventos"
+document.getElementById('all-events').addEventListener('change', function () {
+    var individualCheckboxes = document.querySelectorAll('#event-filters input[type="checkbox"]:not(#all-events)');
+    if (this.checked) {
+        individualCheckboxes.forEach(cb => cb.checked = false);
+    }
+});
+
+document.querySelectorAll('#event-filters input[type="checkbox"]:not(#all-events)').forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        if (document.querySelectorAll('#event-filters input[type="checkbox"]:not(#all-events):checked').length > 0) {
+            document.getElementById('all-events').checked = false; // Desmarcar "Todos los eventos"
+        }
+    });
+});
 // Añadir evento al botón de filtro
 document.getElementById('filter-btn').addEventListener('click', function () {
     var startDateInput = document.getElementById('start-date').value;
     var endDateInput = document.getElementById('end-date').value;
+    var selectedCategories = getSelectedCategories(); // Obtener categorías seleccionadas
 
-    if (startDateInput && endDateInput) {
-        var startDate = new Date(startDateInput);
-        var endDate = new Date(endDateInput);
+    fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
+        .then(response => response.json())
+        .then(data => {
+            let filteredEvents;
 
-        fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
-            .then(response => response.json())
-            .then(data => {
-                var filteredEvents = filterEventsByDate(data.events, startDate, endDate);
-                displayFilteredEvents(filteredEvents);
-            })
-            .catch(error => console.error('Error fetching EONET data:', error));
-    } else {
-        alert('Por favor, selecciona un rango de fechas válido.');
-    }
+            // Verificar si se han introducido fechas
+            if (startDateInput && endDateInput) {
+                var startDate = new Date(startDateInput);
+                var endDate = new Date(endDateInput);
+
+                // Filtrar por fechas y categorías seleccionadas
+                filteredEvents = filterEventsByDateAndCategory(data.events, startDate, endDate, selectedCategories);
+            } else {
+                // Filtrar solo por categorías seleccionadas si no hay fechas
+                filteredEvents = data.events.filter(event => selectedCategories.includes(event.categories[0].title));
+            }
+
+            // Mostrar los eventos filtrados
+            displayFilteredEvents(filteredEvents);
+        })
+        .catch(error => console.error('Error fetching EONET data:', error));
 });
+
 
 // Función para limpiar el mapa
 function clearMap() {
@@ -296,27 +341,10 @@ function showEventsByCategory(category) {
         .catch(error => console.error('Error al obtener los datos de EONET:', error));
 }
 
-// Añadir eventos de clic a los botones de la leyenda
-document.getElementById('volcanoes-btn').addEventListener('click', function () {
-    showEventsByCategory('Volcanoes');
-});
-
-document.getElementById('wildfires-btn').addEventListener('click', function () {
-    showEventsByCategory('Wildfires');
-});
-
-document.getElementById('iceberg-btn').addEventListener('click', function () {
-    showEventsByCategory('Sea and Lake Ice');
-});
-
-document.getElementById('storms-btn').addEventListener('click', function () {
-    showEventsByCategory('Severe Storms');
-});
-
 // Funcion de boton para alternar entre 2D y 3D
-document.getElementById('toggle-view-btn').addEventListener('click', function() {
-    var mapContainer = document.querySelector('.map-container');  
-    var globeContainer = document.getElementById('globe-container');  
+document.getElementById('toggle-view-btn').addEventListener('click', function () {
+    var mapContainer = document.querySelector('.map-container');
+    var globeContainer = document.getElementById('globe-container');
 
     if (mapContainer.style.display === 'none') {
         mapContainer.style.display = 'block';

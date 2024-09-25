@@ -7,9 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prueba Inicial NASA</title>
     <link rel="shortcut icon" type="image/icon" href="Mundo.png" />
-    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <!-- CSS personalizado -->
     <link rel="stylesheet" href="prueba.css" />
 </head>
 
@@ -22,10 +20,9 @@
 
     <button id="toggle-view-btn">Cambiar a Mapa 3D</button>
 
-    <!-- Contenedor de la caja -->
     <div class="map-container">
         <h2>Natural event tracker - 2D Map</h2>
-        <div id="map"></div> <!-- Mapa dentro de una caja -->
+        <div id="map"></div>
     </div>
 
     <!-- Contenedor del globo 3D -->
@@ -41,6 +38,14 @@
         <label for="end-date">Fecha de fin:</label>
         <input type="date" id="end-date">
         <button id="filter-btn">Filtrar</button>
+    </div>
+
+    <div id="event-filters">
+        <label><input type="checkbox" id="all-events" checked> Todos los eventos</label><br>
+        <label><input type="checkbox" id="volcanoes"> Volcanes</label><br>
+        <label><input type="checkbox" id="wildfires"> Incendios forestales</label><br>
+        <label><input type="checkbox" id="storms"> Tormentas</label><br>
+        <label><input type="checkbox" id="icebergs"> Icebergs</label><br>
     </div>
 
     <!-- Contenedor para la leyenda -->

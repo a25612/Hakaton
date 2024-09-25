@@ -55,7 +55,8 @@ body {
 .legend {
     display: none;
     position: absolute;
-    margin-top: 26px;
+    margin-top: 60px;
+    margin-left: 50px;
     left: 0;
     opacity: 95%;
     background: rgb(255, 255, 255);
@@ -86,14 +87,7 @@ body {
     border: none;
     border-radius: 8px;
     font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
-}
-
-.legend-button:hover {
-    background-color: #4169b8;
-    transform: scale(1.05);
-    border-radius: 10px;
 }
 
 .legend-icon {
@@ -152,3 +146,4 @@ body {
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
+
