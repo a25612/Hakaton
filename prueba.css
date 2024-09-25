@@ -5,11 +5,11 @@ body {
 }
 
 .navbar {
-    position: static;
-    background-color: #4169b8;
+        position: static;
+    background-color: #000000;
     color: #fff;
     padding: 15px;
-    text-align: center;
+ 
 }
 
 .navbar a {
@@ -26,14 +26,14 @@ body {
 
 .navbar a:hover {
     border-radius: 8px;
-    background-color: #6fa8e6;
+    background-color: #9092f8;
     transform: scale(1.2);
 }
 
 .filters-container {
     color: white;
     display: flex;
-    flex-direction: row; /* Asegura que estén en fila */
+    flex-direction: row; 
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -46,31 +46,30 @@ body {
     flex-wrap: nowrap;
 }
 
-/* Añadir estilos a los elementos hijos */
 .filters-container > * {
     display: inline-flex;
-    margin: 0 10px; /* Espaciado entre los elementos */
-    width: auto; /* Evita que ocupen todo el ancho */
+    margin: 0 10px; 
+    width: auto; 
 }
 
 .map-container {
     width: 50%;
     margin: 20px auto;
     padding: 20px;
-    background-color: #f4f4f4;
-    border: 2px solid #ccc;
+    background-color: #9092f8;
+    border: 2px solid #4b4db6;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .map-container h2 {
     text-align: center;
-    margin-bottom: 11px;
+    margin-bottom: 18px;
 }
 
 #map {
     height: 500px;
-    border: 2px solid #0a9168;
+    border: 2px solid #8ecde0;
     border-radius: 6px;
 }
 
@@ -82,7 +81,7 @@ body {
     margin-left: 50px;
     left: 0;
     opacity: 95%;
-    background: rgb(255, 255, 255);
+    background: #9092f8;
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -132,6 +131,9 @@ body {
      background-color: #000000;
      opacity: 90%;
 }
+.filters-container label{
+    margin-right: 15px;
+}
 
 #filter-btn {
     background-color: #333;
@@ -144,7 +146,7 @@ body {
 
 #filter-btn:hover {
     border-radius: 8px;
-    background-color: #6fa8e6;
+    background-color: #9092f8;
     transform: scale(1.2);
 }
 
@@ -164,7 +166,7 @@ body {
     margin-top: 60px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4169b8;
+    background-color: #9092f8;
     color: white;
     border: none;
     border-radius: 5px;
@@ -174,7 +176,7 @@ body {
 
 #toggle-view-btn:hover {
     border-radius: 8px;
-    background-color: #6fa8e6;
+    background-color: #8ecde0;
     transform: scale(1.2);
 }
 
