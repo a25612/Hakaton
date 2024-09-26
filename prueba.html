@@ -6,34 +6,36 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prueba Inicial NASA</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link rel="shortcut icon" type="image/icon" href="Mundo.png" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="prueba.css" />
 </head>
 
 <body>
+    <div class="logo">
+        <a><img id="nasa" src="icons/nasa.png" alt="nasa"></a>
+    </div>
     <div class="navbar">
-        <a href="https://www.nasa.gov/" target="_blank" ><img id="nasa" src="icons/nasaicon.png" alt="nasa"></a>
         <a href="#about" id="about-btn">Leyenda</a>
         <a href="https://eonet.gsfc.nasa.gov/" target="_blank">Eonet</a>
-        <a href="#contact">Contacto</a>
     </div>
-    
 
+    <!-- Boton para cambiar entre los mapas -->
     <button id="toggle-view-btn">Cambiar a Mapa 3D</button>
-<div></div>
+    <div></div>
     <div class="map-container">
         <h2>Natural event tracker - 2D Map</h2>
         <div id="map"></div>
     </div>
 
-    <!-- Contenedor del globo 3D -->
     <div id="globe-container" class="map-container">
         <h2>Natural event tracker - 3D Globe</h2>
-        <div id="globe"></div> <!-- Globo 3D dentro de una caja -->
+        <div id="globe"></div>
     </div>
 
-    <!-- Contenedor del filtro de fechas -->
     <div class="filter-container">
         <label for="start-date">Fecha de inicio:</label>
         <input type="date" id="start-date">
@@ -42,37 +44,35 @@
         <button id="filter-btn">Filtrar</button>
     </div>
 
-
-
     <div class="filters-container">
-        <!-- Contenedor del filtro -->
         <div id="event-filters">
-            <label><input type="checkbox" id="all-events" checked> Todos los eventos</label><br>
-            <label><input type="checkbox" id="volcanoes"> Volcanes</label><br>
-            <label><input type="checkbox" id="wildfires"> Incendios</label><br>
-            <label><input type="checkbox" id="storms"> Tormentas</label><br>
-            <label><input type="checkbox" id="icebergs"> Icebergs</label><br>
+            <label><input type="checkbox" id="all-events" checked> Todos los eventos</label>
+            <label><input type="checkbox" id="volcanoes"> Volcanes</label>
+            <label><input type="checkbox" id="wildfires"> Incendios</label>
+            <label><input type="checkbox" id="storms"> Tormentas</label>
+            <label><input type="checkbox" id="icebergs"> Icebergs</label>
         </div>
     </div>
-        <!-- Contenedor para la leyenda -->
-        <div id="legend" class="legend">
-            <button id="iceberg-btn" class="legend-button">
-                <img class="legend-icon" src="icons/ice.png" alt="icono" class="icon">
-                <span>Icebergs</span>
-            </button>
-            <button id="storms-btn" class="legend-button">
-                <img class="legend-icon" src="icons/storm.png" alt="icono" class="icon">
-                <span>Storms</span>
-            </button>
-            <button id="volcanoes-btn" class="legend-button">
-                <img class="legend-icon" src="icons/volcano.png" alt="icono" class="icon">
-                <span>Volcanoes</span>
-            </button>
-            <button id="wildfires-btn" class="legend-button">
-                <img class="legend-icon" src="icons/wildfire.png" alt="icono" class="icon">
-                <span>Wildfires</span>
-            </button>
-        </div>
+
+    <!-- Contenedor para la leyenda -->
+    <div id="legend" class="legend">
+        <button id="iceberg-btn" class="legend-button">
+            <img class="legend-icon" src="icons/ice.png" alt="icono" class="icon">
+            <span>Icebergs</span>
+        </button>
+        <button id="storms-btn" class="legend-button">
+            <img class="legend-icon" src="icons/storm.png" alt="icono" class="icon">
+            <span>Storms</span>
+        </button>
+        <button id="volcanoes-btn" class="legend-button">
+            <img class="legend-icon" src="icons/volcano.png" alt="icono" class="icon">
+            <span>Volcanoes</span>
+        </button>
+        <button id="wildfires-btn" class="legend-button">
+            <img class="legend-icon" src="icons/wildfire.png" alt="icono" class="icon">
+            <span>Wildfires</span>
+        </button>
+    </div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link href="https://cesium.com/downloads/cesiumjs/releases/1.94/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
