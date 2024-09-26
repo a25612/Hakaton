@@ -256,7 +256,7 @@ document.querySelectorAll('#event-filters input[type="checkbox"]:not(#all-events
 document.getElementById('filter-btn').addEventListener('click', function () {
     var startDateInput = document.getElementById('start-date').value;
     var endDateInput = document.getElementById('end-date').value;
-    var selectedCategories = getSelectedCategories(); 
+    var selectedCategories = getSelectedCategories();
 
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
         .then(response => response.json())
@@ -285,7 +285,7 @@ function showEventsByCategory(category) {
                 if (event.categories[0].title === category && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
                     var title = event.title;
-                    var date = new Date(event.geometry[0].date).toLocaleString(); 
+                    var date = new Date(event.geometry[0].date).toLocaleString();
 
                     var iconUrl = '';
                     if (category === 'Volcanoes') iconUrl = 'icons/volcano.png';
