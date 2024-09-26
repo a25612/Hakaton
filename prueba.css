@@ -31,7 +31,7 @@ body {
     display: inline-block;
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     border-radius: 8px;
 }
 
@@ -189,6 +189,6 @@ body {
 
 #toggle-view-btn:hover {
     border-radius: 8px;
-    background-color: #8ecde0;
+    background-color: #9092f8;
     transform: scale(1.2);
 }
