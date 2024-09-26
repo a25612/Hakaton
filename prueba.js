@@ -1,7 +1,7 @@
 // Crear el mapa
 var map = L.map('map').setView([0, 0], 2);
 
-// Definir capas base de mapas
+// Definir capas del mapa 2D
 var osmStandard = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy;',
     maxZoom: 19
@@ -17,8 +17,18 @@ var osmCartoDB = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x
     maxZoom: 19
 });
 
+// Función para limpiar el mapa
+function clearMap() {
+    map.eachLayer(function (layer) {
+        // Mantener la capa del mapa base
+        if (layer instanceof L.TileLayer) {
+            return;
+        }
+        map.removeLayer(layer);
+    });
+}
 
-// Reemplaza 'ACCESS_TOKEN' con tu propio token de Cesium Ion, resgistrandote en la pagina 
+// Token de Cesium
 Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ZmVjNjQyZS0wOTZkLTQyMDctODcxZS0xMWJiZDdkNzE4YmEiLCJpZCI6MjQzNzk0LCJpYXQiOjE3MjcxOTg5OTh9.DRq4Ldf2HUb5bTDqxoDRbwWZnoaGTVS5-p449_ugAQc';
 
 // Crear el visor de CesiumJS en 3D
@@ -43,14 +53,12 @@ viewer.camera.setView({
 // Agregar la capa estándar por defecto
 osmStandard.addTo(map);
 
-// Crear un objeto para las capas base
+// Crear un objeto para las capas
 var baseMaps = {
     "OpenStreetMap Standard": osmStandard,
     "Topographic Map": osmTopography,
     "CartoDB Positron": osmCartoDB
 };
-
-// Añadir control de capas al mapa para alternar entre las capas base
 L.control.layers(baseMaps).addTo(map);
 
 function fetchVolcanoData() {
@@ -80,9 +88,6 @@ function fetchVolcanoData() {
         })
         .catch(error => console.error('Error al obtener los datos de EONET:', error));
 }
-
-// Llamar a la función para obtener los datos de volcanes
-fetchVolcanoData();
 
 
 // Función para obtener y mostrar los incendios forestales
@@ -115,9 +120,6 @@ function fetchWildfireData() {
         .catch(error => console.error('Error al obtener los datos de EONET:', error));
 }
 
-// Llamar a la función para obtener los datos de incendios forestales
-fetchWildfireData();
-
 function fetchIcebergData() {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
         .then(response => response.json())
@@ -145,9 +147,6 @@ function fetchIcebergData() {
         .catch(error => console.error('Error al obtener los datos de EONET:', error));
 }
 
-fetchIcebergData();
-
-
 function fetchStormData() {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
         .then(response => response.json())
@@ -174,8 +173,6 @@ function fetchStormData() {
         })
         .catch(error => console.error('Error al obtener los datos de EONET:', error));
 }
-
-fetchStormData();
 
 // Función para mostrar/ocultar la leyenda
 document.getElementById('about-btn').addEventListener('click', function () {
