@@ -20,7 +20,6 @@ var osmCartoDB = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x
 // Función para limpiar el mapa
 function clearMap() {
     map.eachLayer(function (layer) {
-        // Mantener la capa del mapa base
         if (layer instanceof L.TileLayer) {
             return;
         }
@@ -68,11 +67,10 @@ function fetchVolcanoData() {
             data.events.forEach(event => {
                 var category = event.categories[0].title;
 
-                // Filtrar solo los eventos de tipo "Volcano"
                 if (category === 'Volcanoes' && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
                     var title = event.title;
-                    var date = new Date(event.geometry[0].date).toLocaleString(); // Convertir la fecha a formato legible
+                    var date = new Date(event.geometry[0].date).toLocaleString();
 
                     var customIcon = L.icon({
                         iconUrl: 'icons/volcano.png',
@@ -89,8 +87,6 @@ function fetchVolcanoData() {
         .catch(error => console.error('Error al obtener los datos de EONET:', error));
 }
 
-
-// Función para obtener y mostrar los incendios forestales
 function fetchWildfireData() {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
         .then(response => response.json())
@@ -98,19 +94,16 @@ function fetchWildfireData() {
             data.events.forEach(event => {
                 var category = event.categories[0].title;
 
-                // Filtrar solo los eventos de tipo "Wildfires"
                 if (category === 'Wildfires' && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
                     var title = event.title;
-                    var date = new Date(event.geometry[0].date).toLocaleString(); // Convertir la fecha a formato legible
+                    var date = new Date(event.geometry[0].date).toLocaleString();
 
-                    // Define el ícono personalizado
                     var customIcon = L.icon({
-                        iconUrl: 'icons/wildfire.png', // Cambia esto por la ruta de tu icono descargado
-                        iconSize: [22, 22],  // Ajusta el tamaño del ícono
+                        iconUrl: 'icons/wildfire.png',
+                        iconSize: [22, 22],
                     });
 
-                    // Crear un marcador con el ícono personalizado y añadirlo al mapa
                     L.marker([coords[1], coords[0]], { icon: customIcon })
                         .addTo(map)
                         .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
@@ -177,12 +170,8 @@ function fetchStormData() {
 // Función para mostrar/ocultar la leyenda
 document.getElementById('about-btn').addEventListener('click', function () {
     var legend = document.getElementById('legend');
-
-    // Ajustar la posición de la leyenda a la izquierda
-    legend.style.top = '50px';  // Ajustamos el top si lo necesitas
-    legend.style.left = '20px'; // Ponemos la leyenda a la izquierda del mapa
-
-    // Alternar visibilidad de la leyenda
+    legend.style.top = '50px';
+    legend.style.left = '20px';
     if (legend.style.display === 'none' || legend.style.display === '') {
         legend.style.display = 'block';
     } else {
@@ -209,7 +198,7 @@ function displayFilteredEvents(events) {
         var category = event.categories[0].title;
         var date = new Date(event.geometry[0].date).toLocaleString();
 
-        // Definir el ícono personalizado según la categoría
+        // Definir los iconos de los eventos
         var iconUrl = '';
         if (category === 'Volcanoes') iconUrl = 'icons/volcano.png';
         if (category === 'Wildfires') iconUrl = 'icons/wildfire.png';
@@ -221,19 +210,18 @@ function displayFilteredEvents(events) {
             iconSize: [22, 22]
         });
 
-        // Crear un marcador con el ícono personalizado
         L.marker([coords[1], coords[0]], { icon: customIcon })
             .addTo(map)
             .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
     });
 }
-// Función para obtener eventos filtrados por categoría y fecha
+
 function filterEventsByDateAndCategory(events, startDate, endDate, selectedCategories) {
     return events.filter(event => {
         var eventDate = new Date(event.geometry[0].date);
         var category = event.categories[0].title;
 
-        // Verificar si el evento está dentro del rango de fechas y la categoría está seleccionada
+        // Verificar si el evento está dentro de las fechas y categoría seleccionada
         return eventDate >= startDate && eventDate <= endDate && selectedCategories.includes(category);
     });
 }
@@ -249,7 +237,7 @@ function getSelectedCategories() {
     return categories;
 }
 
-// Lógica para desactivar los checkboxes individuales si se selecciona "Todos los eventos"
+// Desactivar los checkboxes individuales si se selecciona "Todos los eventos"
 document.getElementById('all-events').addEventListener('change', function () {
     var individualCheckboxes = document.querySelectorAll('#event-filters input[type="checkbox"]:not(#all-events)');
     if (this.checked) {
@@ -264,63 +252,41 @@ document.querySelectorAll('#event-filters input[type="checkbox"]:not(#all-events
         }
     });
 });
-// Añadir evento al botón de filtro
+
 document.getElementById('filter-btn').addEventListener('click', function () {
     var startDateInput = document.getElementById('start-date').value;
     var endDateInput = document.getElementById('end-date').value;
-    var selectedCategories = getSelectedCategories(); // Obtener categorías seleccionadas
+    var selectedCategories = getSelectedCategories(); 
 
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
         .then(response => response.json())
         .then(data => {
             let filteredEvents;
-
-            // Verificar si se han introducido fechas
             if (startDateInput && endDateInput) {
                 var startDate = new Date(startDateInput);
                 var endDate = new Date(endDateInput);
 
-                // Filtrar por fechas y categorías seleccionadas
                 filteredEvents = filterEventsByDateAndCategory(data.events, startDate, endDate, selectedCategories);
             } else {
-                // Filtrar solo por categorías seleccionadas si no hay fechas
                 filteredEvents = data.events.filter(event => selectedCategories.includes(event.categories[0].title));
             }
 
-            // Mostrar los eventos filtrados
             displayFilteredEvents(filteredEvents);
         })
         .catch(error => console.error('Error fetching EONET data:', error));
 });
 
-
-// Función para limpiar el mapa
-function clearMap() {
-    map.eachLayer(function (layer) {
-        // Mantener la capa del mapa base
-        if (layer instanceof L.TileLayer) {
-            return;
-        }
-        map.removeLayer(layer);
-    });
-}
-
-// Función para mostrar solo los eventos de una categoría seleccionada
 function showEventsByCategory(category) {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
         .then(response => response.json())
         .then(data => {
-            // Limpiar el mapa antes de mostrar los nuevos eventos
-            clearMap();
 
-            // Filtrar y mostrar eventos de la categoría seleccionada
             data.events.forEach(event => {
                 if (event.categories[0].title === category && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
                     var title = event.title;
-                    var date = new Date(event.geometry[0].date).toLocaleString(); // Convertir la fecha a formato legible
+                    var date = new Date(event.geometry[0].date).toLocaleString(); 
 
-                    // Definir el ícono personalizado según la categoría
                     var iconUrl = '';
                     if (category === 'Volcanoes') iconUrl = 'icons/volcano.png';
                     if (category === 'Wildfires') iconUrl = 'icons/wildfire.png';
@@ -332,7 +298,6 @@ function showEventsByCategory(category) {
                         iconSize: [22, 22]
                     });
 
-                    // Añadir el marcador al mapa
                     L.marker([coords[1], coords[0]], { icon: customIcon })
                         .addTo(map)
                         .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
@@ -373,7 +338,6 @@ function addVolcanoesToGlobe() {
                     var title = event.title;
                     var date = new Date(event.geometry[0].date).toLocaleString();
 
-                    // Agregar un marcador al globo terráqueo 3D
                     viewer.entities.add({
                         name: title,
                         position: Cesium.Cartesian3.fromDegrees(coords[0], coords[1]),
@@ -399,13 +363,11 @@ function addIcebergsToGlobe() {
             data.events.forEach(event => {
                 var category = event.categories[0].title;
 
-                // Filtrar eventos de volcanes
                 if (category === 'Sea and Lake Ice' && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
                     var title = event.title;
                     var date = new Date(event.geometry[0].date).toLocaleString();
 
-                    // Agregar un marcador al globo terráqueo 3D
                     viewer.entities.add({
                         name: title,
                         position: Cesium.Cartesian3.fromDegrees(coords[0], coords[1]),
@@ -431,13 +393,11 @@ function addStormsToGlobe() {
             data.events.forEach(event => {
                 var category = event.categories[0].title;
 
-                // Filtrar eventos de volcanes
                 if (category === 'Severe Storms' && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
                     var title = event.title;
                     var date = new Date(event.geometry[0].date).toLocaleString();
 
-                    // Agregar un marcador al globo terráqueo 3D
                     viewer.entities.add({
                         name: title,
                         position: Cesium.Cartesian3.fromDegrees(coords[0], coords[1]),
@@ -463,13 +423,11 @@ function addWildfiresToGlobe() {
             data.events.forEach(event => {
                 var category = event.categories[0].title;
 
-                // Filtrar eventos de volcanes
                 if (category === 'Wildfires' && event.geometry && event.geometry[0].type === 'Point') {
                     var coords = event.geometry[0].coordinates;
                     var title = event.title;
                     var date = new Date(event.geometry[0].date).toLocaleString();
 
-                    // Agregar un marcador al globo terráqueo 3D
                     viewer.entities.add({
                         name: title,
                         position: Cesium.Cartesian3.fromDegrees(coords[0], coords[1]),
