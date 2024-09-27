@@ -190,15 +190,20 @@ function filterEventsByDate(events, startDate, endDate) {
     });
 }
 
+function clearGlobe() {
+    viewer.entities.removeAll();
+}
+
 function displayFilteredEvents(events) {
     clearMap();
+    clearGlobe();
+
     events.forEach(event => {
         var coords = event.geometry[0].coordinates;
         var title = event.title;
         var category = event.categories[0].title;
         var date = new Date(event.geometry[0].date).toLocaleString();
 
-        // Definir los iconos de los eventos
         var iconUrl = '';
         if (category === 'Volcanoes') iconUrl = 'icons/volcano.png';
         if (category === 'Wildfires') iconUrl = 'icons/wildfire.png';
@@ -213,6 +218,17 @@ function displayFilteredEvents(events) {
         L.marker([coords[1], coords[0]], { icon: customIcon })
             .addTo(map)
             .bindPopup(`<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`);
+
+        viewer.entities.add({
+            name: title,
+            position: Cesium.Cartesian3.fromDegrees(coords[0], coords[1]),
+            billboard: {
+                image: iconUrl,
+                width: 40,
+                height: 40
+            },
+            description: `<b>Evento:</b> ${title}<br><b>Categoría:</b> ${category}<br><b>Fecha:</b> ${date}`
+        });
     });
 }
 
@@ -221,7 +237,6 @@ function filterEventsByDateAndCategory(events, startDate, endDate, selectedCateg
         var eventDate = new Date(event.geometry[0].date);
         var category = event.categories[0].title;
 
-        // Verificar si el evento está dentro de las fechas y categoría seleccionada
         return eventDate >= startDate && eventDate <= endDate && selectedCategories.includes(category);
     });
 }
@@ -271,10 +286,11 @@ document.getElementById('filter-btn').addEventListener('click', function () {
                 filteredEvents = data.events.filter(event => selectedCategories.includes(event.categories[0].title));
             }
 
-            displayFilteredEvents(filteredEvents);
+            displayFilteredEvents(filteredEvents); // Mostrar los eventos filtrados en ambos mapas
         })
         .catch(error => console.error('Error fetching EONET data:', error));
 });
+
 
 function showEventsByCategory(category) {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
@@ -323,7 +339,6 @@ document.getElementById('toggle-view-btn').addEventListener('click', function ()
     }
 });
 
-
 // Añadir eventos al mapa 3D
 function addVolcanoesToGlobe() {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
@@ -354,8 +369,6 @@ function addVolcanoesToGlobe() {
         .catch(error => console.error('Error al obtener los datos de EONET:', error));
 }
 
-addVolcanoesToGlobe();
-
 function addIcebergsToGlobe() {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
         .then(response => response.json())
@@ -383,8 +396,6 @@ function addIcebergsToGlobe() {
         })
         .catch(error => console.error('Error al obtener los datos de EONET:', error));
 }
-
-addIcebergsToGlobe();
 
 function addStormsToGlobe() {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
@@ -414,8 +425,6 @@ function addStormsToGlobe() {
         .catch(error => console.error('Error al obtener los datos de EONET:', error));
 }
 
-addStormsToGlobe();
-
 function addWildfiresToGlobe() {
     fetch('https://eonet.gsfc.nasa.gov/api/v3/events')
         .then(response => response.json())
@@ -443,5 +452,3 @@ function addWildfiresToGlobe() {
         })
         .catch(error => console.error('Error al obtener los datos de EONET:', error));
 }
-
-addWildfiresToGlobe();

@@ -61,20 +61,18 @@ body {
     white-space: nowrap;
 }
 
-
-
 .map-container {
     width: 50%;
     margin: 20px auto;
     padding: 20px;
-    background-image: linear-gradient(to top, rgba(255,0,0,0), rgb(117, 102, 184));
+    background-image: linear-gradient(to top, rgba(255, 0, 0, 0), rgb(117, 102, 184));
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .map-container h2 {
     font-variation-settings:
-    "wdth" 125;
+        "wdth" 125;
     text-align: center;
     margin-bottom: 18px;
     color: white;
@@ -85,7 +83,6 @@ body {
     border: 2px solid #ffffff;
     border-radius: 6px;
 }
-
 
 .legend {
     display: none;
@@ -166,7 +163,7 @@ body {
     border-radius: 8px;
     background-color: #a0cfe2;
     transform: scale(1.2);
- 
+
 }
 
 #globe {
@@ -180,13 +177,14 @@ body {
 }
 
 #toggle-view-btn {
-    font-family: "Fredoka", sans-serif;;
+    font-family: "Fredoka", sans-serif;
+    ;
     float: right;
     margin-right: 75px;
     margin-top: 60px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color:#9092f8 ;
+    background-color: #9092f8;
     color: white;
     border: none;
     border-radius: 8px;
